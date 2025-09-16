@@ -16,5 +16,26 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.sleeptrackermealplan.LoginFragment"
-        android:label="Login" />
+        android:label="Login" >
+        <action
+            android:id="@+id/action_loginFragment_to_checkInFragment"
+            app:destination="@id/checkInFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/checkInFragment"
+        android:name="com.example.sleeptrackermealplan.CheckInFragment"
+        android:label="Check In">
+
+        <action
+            android:id="@+id/action_checkInFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.sleeptrackermealplan.MainFragment"
+        android:label="Main" />
+
 </navigation>

@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_wellness"
+        android:icon="@drawable/palceholder"
+        android:title="Wellness" />
+
+    <item
+        android:id="@+id/nav_library"
+        android:icon="@drawable/palceholder"
+        android:title="Library" />
+
+    <item
+        android:id="@+id/nav_progress"
+        android:icon="@drawable/palceholder"
+        android:title="Progress" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/palceholder"
+        android:title="Setting" />
+</menu>

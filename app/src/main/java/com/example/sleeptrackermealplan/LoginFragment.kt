@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.sleeptrackermealplan.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val correctEmail = "test@vitahabit.com"
-    private val correctPassword = "123456"
+    // Hardcoded credentials
+    private val correctEmail = "alvan"
+    private val correctPassword = "jomoks"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +29,12 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.nextButton.setOnClickListener {
-            val inputEmail = binding.emailField.text.toString().trim()
-            val inputPassword = binding.passwordField.text.toString().trim()
+            val emailInput = binding.emailField.text.toString().trim()
+            val passwordInput = binding.passwordField.text.toString().trim()
 
-            if (inputEmail == correctEmail && inputPassword == correctPassword) {
+            if (emailInput == correctEmail && passwordInput == correctPassword) {
                 Toast.makeText(requireContext(), "Login Successful!", Toast.LENGTH_SHORT).show()
-                // You can navigate to the next fragment or activity here
+                findNavController().navigate(R.id.action_loginFragment_to_checkInFragment)
             } else {
                 Toast.makeText(requireContext(), "Incorrect email or password", Toast.LENGTH_SHORT).show()
             }
