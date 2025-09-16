@@ -24,7 +24,7 @@ class CheckInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.nextButton.setOnClickListener {
-            findNavController().navigate(R.id.action_checkInFragment_to_mainFragment)
+            findNavController().navigate(R.id.action_checkInFragment_to_main_tabs)
         }
     }
 

@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.sleeptrackermealplan.WelcomeFragment"
-        android:label="Welcome" >
+        android:label="Welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.sleeptrackermealplan.LoginFragment"
-        android:label="Login" >
+        android:label="Login">
         <action
             android:id="@+id/action_loginFragment_to_checkInFragment"
             app:destination="@id/checkInFragment" />
@@ -26,16 +26,12 @@
         android:id="@+id/checkInFragment"
         android:name="com.example.sleeptrackermealplan.CheckInFragment"
         android:label="Check In">
-
         <action
-            android:id="@+id/action_checkInFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_checkInFragment_to_main_tabs"
+            app:destination="@id/nav_graph_main_tabs" />
     </fragment>
 
-
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.sleeptrackermealplan.MainFragment"
-        android:label="Main" />
+    <!-- 👇 Instead of MainFragment, include the main tabs graph -->
+    <include app:graph="@navigation/nav_graph_main_tabs" />
 
 </navigation>

@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main_tabs"
     app:startDestination="@id/nav_wellness">
 
     <fragment
         android:id="@+id/nav_wellness"
         android:name="com.example.sleeptrackermealplan.WellnessFragment"
-        android:label="Wellness" />
+        android:label="Wellness"
+        tools:layout="@layout/fragment_wellness"/>
+
+    <fragment
+        android:id="@+id/nav_meal_plan"
+        android:name="com.example.sleeptrackermealplan.MealPlanFragment"
+        android:label="Meal Plan"
+        tools:layout="@layout/fragment_meal_plan" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_sleep_tracker"-->
+<!--        android:name="com.example.sleeptrackermealplan.SleepTrackerFragment"-->
+<!--        android:label="Sleep Tracker"-->
+<!--        tools:layout="@layout/fragment_sleep_tracker" />-->
+
 
     <fragment
         android:id="@+id/nav_library"
