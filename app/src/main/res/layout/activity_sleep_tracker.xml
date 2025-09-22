@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#212121"
+    tools:context=".MealPlan">
+
+    <TextView
+        android:id="@+id/tv_back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:padding="8dp"
+        android:text="&lt;"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nutrition"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_back_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_back_arrow" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_meal_plan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        app:cardBackgroundColor="#2C2C2E"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sleep tracker"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Today 05 Sept 2025"
+                android:textColor="#AEAEB2"
+                android:textSize="14sp" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_nutrition"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="12dp"
+                android:progress="75"
+                android:progressTint="#F0A837" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <HorizontalScrollView
+        android:id="@+id/sv_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/card_meal_plan">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F0A837"
+                android:background="@drawable/abc_vector_test"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fr"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sa" android:textColor="#AEAEB2" android:textSize="14sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="06" android:textColor="@android:color/white" android:textSize="16sp" android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Su" android:textColor="#AEAEB2" android:textSize="14sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="07" android:textColor="@android:color/white" android:textSize="16sp" android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mo" android:textColor="#AEAEB2" android:textSize="14sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="08" android:textColor="@android:color/white" android:textSize="16sp" android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/btn_set_reminders"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#F0A837"
+        android:paddingVertical="14dp"
+        android:text="Set reminders on your phone 🕒"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        app:cornerRadius="24dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        android:background="#2C2C2E"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Workout" android:textColor="#AEAEB2"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Wellness" android:textColor="#AEAEB2"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Sleep Tracker" android:textColor="#F0A837"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Progress" android:textColor="#AEAEB2"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Setting" android:textColor="#AEAEB2"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
