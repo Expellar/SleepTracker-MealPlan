@@ -1,0 +1,273 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#212121"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true" tools:context=".SleepTrackerFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
+
+        <!-- ✅ AppBar with Toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#212121"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Sleep Tracker"
+                app:titleTextColor="@android:color/white"
+                app:navigationIcon="@drawable/ic_arrow_back"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Date RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/date_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            tools:listitem="@layout/item_date" />
+
+        <!-- Sleep Score Progress -->
+        <ProgressBar
+            android:id="@+id/sleep_score_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="86"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:rotation="-90"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_recycler_view" />
+
+        <!-- Sleep Score Value -->
+        <TextView
+            android:id="@+id/sleep_score_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="86"
+            android:textColor="@android:color/white"
+            android:textSize="60sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/sleep_score_label"
+            app:layout_constraintEnd_toEndOf="@id/sleep_score_progress"
+            app:layout_constraintStart_toStartOf="@id/sleep_score_progress"
+            app:layout_constraintTop_toTopOf="@id/sleep_score_progress"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <!-- Sleep Score Label -->
+        <TextView
+            android:id="@+id/sleep_score_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sleep Score"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/sleep_score_progress"
+            app:layout_constraintEnd_toEndOf="@id/sleep_score_value"
+            app:layout_constraintStart_toStartOf="@id/sleep_score_value"
+            app:layout_constraintTop_toBottomOf="@id/sleep_score_value" />
+
+        <!-- Sleep Time Label -->
+        <TextView
+            android:id="@+id/sleep_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="8dp"
+            android:text="SLEEP TIME"
+            android:textColor="@android:color/darker_gray"
+            app:drawableStartCompat="@drawable/ic_moon"
+            app:drawableTint="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sleep_score_progress" />
+
+        <!-- Sleep Time Value -->
+        <TextView
+            android:id="@+id/sleep_time_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="9 HRS"
+            android:textColor="#A079FF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sleep_time_label" />
+
+        <!-- Wake Up Label -->
+        <TextView
+            android:id="@+id/wake_up_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="WAKE UP TIME"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sleep_time_value" />
+
+        <!-- Wake Up Value -->
+        <TextView
+            android:id="@+id/wake_up_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="7:35 A.M."
+            android:textColor="#FFC107"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/wake_up_label"
+            app:layout_constraintStart_toStartOf="@id/wake_up_label"
+            app:layout_constraintTop_toBottomOf="@id/wake_up_label" />
+
+        <!-- Time in Bed Label -->
+        <TextView
+            android:id="@+id/time_in_bed_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="TIME IN BED"
+            android:textColor="@android:color/darker_gray"
+            app:drawableEndCompat="@drawable/ic_info"
+            app:drawableTint="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+            app:layout_constraintTop_toTopOf="@id/wake_up_label" />
+
+        <!-- Time in Bed Value -->
+        <TextView
+            android:id="@+id/time_in_bed_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="22:17 P.M."
+            android:textColor="#FFC107"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/time_in_bed_label"
+            app:layout_constraintStart_toStartOf="@id/time_in_bed_label"
+            app:layout_constraintTop_toBottomOf="@id/time_in_bed_label" />
+
+        <!-- Guideline -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <!-- Sound Options -->
+        <LinearLayout
+            android:id="@+id/sound_options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wake_up_value">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_nature" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Nature"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_rain" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Rain"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Sleep Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sleep_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#FF9800"
+            android:paddingVertical="14dp"
+            android:text="Sleep"
+            app:cornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sound_options" />
+
+        <!-- Wake Up Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wake_up_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:paddingVertical="14dp"
+            android:text="Wake Up"
+            android:textColor="#FF9800"
+            app:cornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sleep_button"
+            app:strokeColor="#FF9800" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -25,15 +25,15 @@ class WellnessFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Navigate to Meal Plan when card clicked
+        // Navigate to Meal Plan
         binding.cardMealPlan.setOnClickListener {
             findNavController().navigate(R.id.nav_meal_plan)
         }
 
-//        // Navigate to Sleep Tracker (you’ll add the fragment later)
-//        binding.cardSleepTracker.setOnClickListener {
-//            findNavController().navigate(R.id.nav_sleep_tracker)
-//        }
+        // ✅ Navigate to Sleep Tracker
+        binding.cardSleepTracker.setOnClickListener {
+            findNavController().navigate(R.id.nav_sleep_tracker)
+        }
     }
 
     override fun onDestroyView() {

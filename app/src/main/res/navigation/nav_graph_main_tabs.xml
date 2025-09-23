@@ -9,7 +9,12 @@
         android:id="@+id/nav_wellness"
         android:name="com.example.sleeptrackermealplan.WellnessFragment"
         android:label="Wellness"
-        tools:layout="@layout/fragment_wellness"/>
+        tools:layout="@layout/fragment_wellness">
+
+        <action
+            android:id="@+id/action_wellness_to_sleepTracker"
+            app:destination="@id/nav_sleep_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_meal_plan"
@@ -17,11 +22,12 @@
         android:label="Meal Plan"
         tools:layout="@layout/fragment_meal_plan" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_sleep_tracker"-->
-<!--        android:name="com.example.sleeptrackermealplan.SleepTrackerFragment"-->
-<!--        android:label="Sleep Tracker"-->
-<!--        tools:layout="@layout/fragment_sleep_tracker" />-->
+    <fragment
+        android:id="@+id/nav_sleep_tracker"
+        android:name="com.example.sleeptrackermealplan.SleepTrackerFragment"
+        android:label="Sleep Tracker"
+        tools:layout="@layout/fragment_sleep_tracker" />
+
 
 
     <fragment
