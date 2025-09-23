@@ -30,7 +30,9 @@
                 app:title="Sleep Tracker"
                 app:titleTextColor="@android:color/white"
                 app:navigationIcon="@drawable/ic_arrow_back"/>
+
         </com.google.android.material.appbar.AppBarLayout>
+
 
         <!-- Date RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView

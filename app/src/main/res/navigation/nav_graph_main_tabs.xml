@@ -28,20 +28,35 @@
         android:label="Sleep Tracker"
         tools:layout="@layout/fragment_sleep_tracker" />
 
-
-
     <fragment
         android:id="@+id/nav_library"
         android:name="com.example.sleeptrackermealplan.LibraryFragment"
-        android:label="Library" />
+        android:label="Library"
+        tools:layout="@layout/fragment_library"/>
 
     <fragment
         android:id="@+id/nav_progress"
         android:name="com.example.sleeptrackermealplan.ProgressFragment"
-        android:label="Progress" />
+        android:label="Progress"
+        tools:layout="@layout/fragment_progress" />
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.sleeptrackermealplan.SettingsFragment"
-        android:label="Settings" />
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" >
+
+        <!-- ✅ ACTION ADDED: This defines the navigation path -->
+        <action
+            android:id="@+id/action_settingsFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+    </fragment>
+
+    <!-- ✅ NEW FRAGMENT ADDED: This is the destination for your action -->
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.example.sleeptrackermealplan.MyProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_my_profile" />
+
 </navigation>

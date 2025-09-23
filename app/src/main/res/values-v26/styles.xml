@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AchievementIcon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:alpha">0.5</item> <!-- Makes them look "unlocked" -->
+    </style>
+</resources>
