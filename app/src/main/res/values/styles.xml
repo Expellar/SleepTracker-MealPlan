@@ -85,8 +85,59 @@
         <item name="android:paddingVertical">8dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
-
-
-
     </style>
+
+        <style name="SettingsRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+            <!-- Lays out the buttons evenly in the RadioGroup -->
+            <item name="android:layout_width">0dp</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_weight">1</item>
+
+            <!-- Hides the default circular radio button -->
+            <item name="android:button">@null</item>
+
+            <!-- Sets our custom circle drawable on top of the text -->
+            <item name="android:drawableTop">@drawable/radio_selector</item>
+            <item name="android:drawablePadding">8dp</item>
+
+            <!-- Centers the text and drawable -->
+            <item name="android:gravity">center</item>
+
+            <!-- Sets the text appearance -->
+            <item name="android:textColor">#8E8E93</item>
+            <item name="android:textSize">14sp</item>
+        </style>
+
+    <!-- In res/values/styles.xml -->
+    <style name="ReminderLabelStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ReminderTimeStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textColor">#AEAEB2</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ReminderSwitchStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginVertical">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+    <style name="ReminderDividerStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:background">#505050</item>
+    </style>
+
+
 </resources>

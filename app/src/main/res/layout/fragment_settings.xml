@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="24dp">
 
+        <!-- Title -->
         <TextView
             android:id="@+id/settings_title"
             android:layout_width="wrap_content"
@@ -39,6 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/settings_title" />
 
+        <!-- Settings Items -->
 
         <TextView
             android:id="@+id/setting_profile"
@@ -48,8 +50,9 @@
             android:text="My Profile"
             app:drawableStartCompat="@drawable/ic_profile"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/divider" />
+            app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <TextView
             android:id="@+id/setting_units"
@@ -106,18 +109,97 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/setting_reminders" />
 
+        <!-- Log Out -->
+        <TextView
+            android:id="@+id/setting_logout"
+            style="@style/SettingsItemStyle"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Log Out"
+            android:textColor="#F44336"
+            app:drawableStartCompat="@drawable/ic_logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setting_appearance" />
+
+        <!-- Arrow for profile (example) -->
+
         <ImageView
             android:id="@+id/button_my_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="352dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/setting_profile"
+            android:layout_marginTop="86dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="473dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/setting_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_arrow_forward_white" />
+
+        <ImageView
+            android:id="@+id/button_my_profile3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="381dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_my_profile"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_arrow_forward_white" />
+
+        <ImageView
+            android:id="@+id/button_my_profile5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="290dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="317dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_arrow_forward_white" />
+
+        <ImageView
+            android:id="@+id/button_my_profile7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="358dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="273dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_arrow_forward_white" />
+
+        <ImageView
+            android:id="@+id/button_my_profile8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="426dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="229dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_arrow_forward_white" />
+
+        <ImageView
+            android:id="@+id/button_my_profile4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="222dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="361dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_arrow_forward_white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

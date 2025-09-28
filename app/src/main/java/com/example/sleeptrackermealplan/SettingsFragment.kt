@@ -33,8 +33,14 @@ class SettingsFragment : Fragment() {
             findNavController().navigate(R.id.action_settingsFragment_to_myProfileFragment)
         }
 
-        // You can add listeners for the other settings items here as well
-        // binding.settingUnits.setOnClickListener { ... }
+        binding.settingSound.setOnClickListener {
+            // This uses the action we defined in the nav_graph to navigate
+            findNavController().navigate(R.id.action_settingsFragment_to_soundsSettingsFragment)
+        }
+
+        binding.settingNotifications.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_notificationSettingsFragment)
+        }
     }
 
     override fun onDestroyView() {

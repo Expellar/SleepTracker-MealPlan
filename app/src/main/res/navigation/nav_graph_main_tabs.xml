@@ -5,12 +5,12 @@
     android:id="@+id/nav_graph_main_tabs"
     app:startDestination="@id/nav_wellness">
 
+    <!-- Main Tab Fragments -->
     <fragment
         android:id="@+id/nav_wellness"
         android:name="com.example.sleeptrackermealplan.WellnessFragment"
         android:label="Wellness"
         tools:layout="@layout/fragment_wellness">
-
         <action
             android:id="@+id/action_wellness_to_sleepTracker"
             app:destination="@id/nav_sleep_tracker" />
@@ -20,19 +20,30 @@
         android:id="@+id/nav_meal_plan"
         android:name="com.example.sleeptrackermealplan.MealPlanFragment"
         android:label="Meal Plan"
-        tools:layout="@layout/fragment_meal_plan" />
+        tools:layout="@layout/fragment_meal_plan">
+        <action
+            android:id="@+id/action_mealPlanFragment_to_mealRemindersFragment"
+            app:destination="@id/mealRemindersFragment" />
+        <action
+            android:id="@+id/action_mealPlanFragment_to_foodSelectionFragment"
+            app:destination="@id/foodSelectionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_sleep_tracker"
         android:name="com.example.sleeptrackermealplan.SleepTrackerFragment"
         android:label="Sleep Tracker"
-        tools:layout="@layout/fragment_sleep_tracker" />
+        tools:layout="@layout/fragment_sleep_tracker">
+        <action
+            android:id="@+id/action_sleepTrackerFragment_to_sleepRemindersFragment"
+            app:destination="@id/sleepRemindersFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_library"
         android:name="com.example.sleeptrackermealplan.LibraryFragment"
         android:label="Library"
-        tools:layout="@layout/fragment_library"/>
+        tools:layout="@layout/fragment_library" />
 
     <fragment
         android:id="@+id/nav_progress"
@@ -44,19 +55,66 @@
         android:id="@+id/nav_settings"
         android:name="com.example.sleeptrackermealplan.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings" >
-
-        <!-- ✅ ACTION ADDED: This defines the navigation path -->
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_myProfileFragment"
             app:destination="@id/myProfileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_notificationSettingsFragment"
+            app:destination="@id/notificationSettingsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_soundsSettingsFragment"
+            app:destination="@id/soundsSettingsFragment" />
     </fragment>
 
-    <!-- ✅ NEW FRAGMENT ADDED: This is the destination for your action -->
+    <!-- Settings Sub-Fragments -->
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.example.sleeptrackermealplan.MyProfileFragment"
         android:label="My Profile"
         tools:layout="@layout/fragment_my_profile" />
 
+    <fragment
+        android:id="@+id/notificationSettingsFragment"
+        android:name="com.example.sleeptrackermealplan.NotificationSettingsFragment"
+        android:label="Notification Settings"
+        tools:layout="@layout/fragment_notification_settings" />
+
+    <fragment
+        android:id="@+id/soundsSettingsFragment"
+        android:name="com.example.sleeptrackermealplan.SoundsSettingsFragment"
+        android:label="Sound &amp; Haptics"
+        tools:layout="@layout/fragment_sounds_settings" />
+
+    <!-- Reminder Fragments -->
+    <fragment
+        android:id="@+id/mealRemindersFragment"
+        android:name="com.example.sleeptrackermealplan.MealRemindersFragment"
+        android:label="Meal Reminders"
+        tools:layout="@layout/fragment_meal_reminders" />
+
+    <fragment
+        android:id="@+id/sleepRemindersFragment"
+        android:name="com.example.sleeptrackermealplan.SleepRemindersFragment"
+        android:label="Sleep Reminders"
+        tools:layout="@layout/fragment_sleep_reminders" />
+
+    <!-- Meal Plan Flow Fragments -->
+    <fragment
+        android:id="@+id/foodSelectionFragment"
+        android:name="com.example.sleeptrackermealplan.FoodSelectionFragment"
+        android:label="Select Food"
+        tools:layout="@layout/fragment_food_selection">
+        <action
+            android:id="@+id/action_foodSelectionFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.sleeptrackermealplan.RecipeDetailFragment"
+        android:label="Recipe Details"
+        tools:layout="@layout/fragment_recipe_detail" />
+
 </navigation>
+

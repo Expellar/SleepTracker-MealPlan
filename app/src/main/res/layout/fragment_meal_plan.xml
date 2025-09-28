@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="24dp">
 
-        <!-- ✅ AppBar with Toolbar -->
+        <!-- ... (Toolbar and Meal Plan Card remain the same) ... -->
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="0dp"
@@ -34,7 +34,6 @@
                 app:navigationIcon="@drawable/ic_arrow_back"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Meal Plan card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_meal_plan"
             android:layout_width="0dp"
@@ -47,13 +46,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBarLayout">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,15 +58,14 @@
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
                 <TextView
+                    android:id="@+id/text_date_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Today 05 Sept 2025"
                     android:textColor="#AEAEB2"
                     android:textSize="14sp" />
-
                 <ProgressBar
                     android:id="@+id/progress_bar_nutrition"
                     style="?android:attr/progressBarStyleHorizontal"
@@ -81,45 +77,47 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <HorizontalScrollView
-            android:id="@+id/sv_calendar"
-            android:layout_width="match_parent"
+
+        <!-- ✅ Container for Calendar RecyclerView and Picker Icon -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calendar_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@id/card_meal_plan">
+            app:layout_constraintTop_toBottomOf="@id/card_meal_plan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_calendar"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/date_selected_background"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingVertical="8dp">
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_open_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:listitem="@layout/item_date" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fr"
-                        android:textColor="#1C1C1E"
-                        android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/btn_open_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_calendar"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Open calendar picker"
+                app:tint="@android:color/white"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="05"
-                        android:textColor="#1C1C1E"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-        </HorizontalScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_vertical"
@@ -131,25 +129,22 @@
         <LinearLayout
             android:id="@+id/left_column"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/btn_set_reminders"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sv_calendar">
+            app:layout_constraintTop_toBottomOf="@id/calendar_container">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_breakfast"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="150dp"
                 android:layout_marginBottom="8dp"
-                android:layout_weight="1"
                 app:cardBackgroundColor="#3A3A3C"
                 app:cardCornerRadius="16dp">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -166,6 +161,7 @@
                         android:orientation="vertical"
                         android:padding="8dp">
                         <TextView
+                            android:id="@+id/text_breakfast_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Breakfast"
@@ -173,12 +169,14 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <TextView
+                            android:id="@+id/text_breakfast_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Avocado &amp; poached egg toast"
                             android:textColor="#E5E5EA"
                             android:textSize="10sp" />
                         <TextView
+                            android:id="@+id/text_breakfast_calories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="350kcal"
@@ -189,13 +187,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_lunch"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="150dp"
                 android:layout_marginBottom="8dp"
-                android:layout_weight="1"
                 app:cardBackgroundColor="#3A3A3C"
                 app:cardCornerRadius="16dp">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -212,6 +209,7 @@
                         android:orientation="vertical"
                         android:padding="8dp">
                         <TextView
+                            android:id="@+id/text_lunch_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Lunch"
@@ -219,12 +217,14 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <TextView
+                            android:id="@+id/text_lunch_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Grilled Chicken Veggie Salad"
                             android:textColor="#E5E5EA"
                             android:textSize="10sp" />
                         <TextView
+                            android:id="@+id/text_lunch_calories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="420kcal"
@@ -235,12 +235,11 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_dinner"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="150dp"
                 app:cardBackgroundColor="#3A3A3C"
                 app:cardCornerRadius="16dp">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -257,6 +256,7 @@
                         android:orientation="vertical"
                         android:padding="8dp">
                         <TextView
+                            android:id="@+id/text_dinner_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Dinner"
@@ -264,12 +264,14 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <TextView
+                            android:id="@+id/text_dinner_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Grilled Lemon Garlic Salmon"
                             android:textColor="#E5E5EA"
                             android:textSize="10sp" />
                         <TextView
+                            android:id="@+id/text_dinner_calories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="550kcal"
@@ -281,74 +283,155 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_cooking_tutorial"
+        <FrameLayout
+            android:id="@+id/right_column_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="@id/left_column"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline_vertical"
             app:layout_constraintTop_toTopOf="@id/left_column">
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_cooking_tutorial"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="match_parent">
 
-                <View
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#4D000000" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="Cooking Tutorial"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/ic_cooking_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:tint="@android:color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_food_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_food_choice" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_recipe_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#4D000000" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:text="Cooking Tutorial"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/image_recipe_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
 
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_cooking_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:tint="@android:color/white" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#66000000"/>
+
+                    <TextView
+                        android:id="@+id/text_recipe_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Selected Food Name"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_view_recipe"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:text="Recipe"
+                            android:textColor="@android:color/white"
+                            app:strokeColor="@android:color/white"
+                            app:cornerRadius="20dp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_view_video"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Video"
+                            android:backgroundTint="@color/orange"
+                            android:textColor="@android:color/black"
+                            app:cornerRadius="20dp"/>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_set_reminders"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="#F0A837"
             android:paddingVertical="14dp"
             android:text="Set reminders on your phone"
-            android:textAllCaps="false"
-            android:textColor="#1C1C1E"
-            android:textSize="16sp"
             app:cornerRadius="24dp"
-            app:icon="@drawable/ic_clock"
-            app:iconGravity="textEnd"
-            app:iconTint="#1C1C1E"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/left_column"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+

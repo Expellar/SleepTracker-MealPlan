@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1C1C1E"
+    android:fitsSystemWindows="true"
+    tools:context=".SoundsSettingsFragment">
+
+    <!-- Header / Toolbar -->
+    <ImageView
+        android:id="@+id/image_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/white"
+        android:contentDescription="Back Button" />
+
+    <TextView
+        android:id="@+id/text_title_sounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SOUND &amp; HAPTICS"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/image_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_back" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#505050"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_title_sounds" />
+
+    <!-- Sleep Alarm Sounds Card -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_sleep_alarm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_settings_container"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider">
+
+        <TextView
+            android:id="@+id/label_sleep_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bedtime Reminder"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup_sleep_alarm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_sleep_alarm">
+
+            <RadioButton
+                android:id="@+id/radio_sleep_sound_vibration"
+                style="@style/SettingsRadioButton"
+                android:text="Sound &amp; Vibrate"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radio_sleep_sound_only"
+                style="@style/SettingsRadioButton"
+                android:text="Sound Only" />
+
+            <RadioButton
+                android:id="@+id/radio_sleep_off"
+                style="@style/SettingsRadioButton"
+                android:text="Off" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Meal Reminder Sounds Card -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_meal_reminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_settings_container"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container_sleep_alarm">
+
+        <TextView
+            android:id="@+id/label_meal_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meal Reminders"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup_meal_reminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_meal_reminder">
+
+            <RadioButton
+                android:id="@+id/radio_meal_sound_vibration"
+                style="@style/SettingsRadioButton"
+                android:checked="true"
+                android:text="Sound &amp; Vibrate" />
+
+            <RadioButton
+                android:id="@+id/radio_meal_sound_only"
+                style="@style/SettingsRadioButton"
+                android:text="Sound Only" />
+
+            <RadioButton
+                android:id="@+id/radio_meal_off"
+                style="@style/SettingsRadioButton"
+                android:text="Off" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
