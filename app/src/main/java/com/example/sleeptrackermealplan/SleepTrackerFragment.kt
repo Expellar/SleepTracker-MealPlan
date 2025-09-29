@@ -1,10 +1,15 @@
 package com.example.sleeptrackermealplan
 
 import android.app.DatePickerDialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.sleeptrackermealplan.databinding.FragmentSleepTrackerBinding
@@ -30,10 +35,13 @@ class SleepTrackerFragment : Fragment() {
     private var selectedDate: CalendarDate? = null
     private lateinit var dateAdapter: DateAdapter
     private val calendarDates = mutableListOf<CalendarDate>()
-    private val daysInPast = 365 // One year in the past
+    private val daysInPast = 365
+
+    // --- Media Player for Soundtracks ---
+    private var mediaPlayer: MediaPlayer? = null
+    private var selectedSoundOption: View? = null
 
     // --- Data Persistence ---
-    // This HashMap simulates a database to store sleep data for each date.
     private val sleepDataHistory = HashMap<String, DailySleepData>()
 
     override fun onCreateView(
@@ -48,24 +56,25 @@ class SleepTrackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCalendar()
+        setupSoundOptions()
 
-        // --- Click Listeners ---
-        binding.btnOpenCalendar.setOnClickListener {
-            showDatePickerDialog()
-        }
+        // ✅ FIX: Restored the logic for all buttons
+        binding.btnOpenCalendar.setOnClickListener { showDatePickerDialog() }
 
         binding.sleepButton.setOnClickListener {
-            // Record the start time for the currently selected date
             val dateKey = getDateKey(selectedDate!!.calendar)
             val sleepData = sleepDataHistory.getOrPut(dateKey) { DailySleepData() }
             sleepData.sleepTimeStartMillis = System.currentTimeMillis()
+            // Reset wake time in case user starts a new session
+            sleepData.wakeTimeMillis = null
+            calculateSleepStats(sleepData) // Recalculate stats
             updateSleepUiForDate(selectedDate!!)
         }
 
         binding.wakeUpButton.setOnClickListener {
-            // Record the end time and calculate the duration
             val dateKey = getDateKey(selectedDate!!.calendar)
             val sleepData = sleepDataHistory.get(dateKey)
+            // Only allow wake up if a sleep session has started and not ended
             if (sleepData?.sleepTimeStartMillis != null && sleepData.wakeTimeMillis == null) {
                 sleepData.wakeTimeMillis = System.currentTimeMillis()
                 calculateSleepStats(sleepData)
@@ -77,51 +86,81 @@ class SleepTrackerFragment : Fragment() {
             findNavController().navigate(R.id.action_sleepTrackerFragment_to_sleepRemindersFragment)
         }
 
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+    }
+
+    private fun setupSoundOptions() {
+        binding.optionNature.setOnClickListener { handleSoundSelection(it, R.raw.nature) }
+        binding.optionRain.setOnClickListener { handleSoundSelection(it, R.raw.rain) }
+        binding.optionFocus.setOnClickListener { handleSoundSelection(it, R.raw.focus) }
+        binding.optionMeditation.setOnClickListener { handleSoundSelection(it, R.raw.meditation) }
+        binding.optionCalm.setOnClickListener { handleSoundSelection(it, R.raw.calm) }
+    }
+
+    private fun handleSoundSelection(clickedView: View, soundResId: Int) {
+        // If a sound is already playing and the user taps the same icon, stop it.
+        if (selectedSoundOption == clickedView) {
+            stopSound()
+            return
+        }
+
+        // If a different sound is playing, stop it first.
+        stopSound()
+
+        // Start the new sound
+        mediaPlayer = MediaPlayer.create(requireContext(), soundResId)
+        mediaPlayer?.isLooping = true // Loop the sound
+        mediaPlayer?.start()
+
+        // Update the UI
+        setSelectedSoundUI(clickedView as LinearLayout)
+        selectedSoundOption = clickedView
+    }
+
+    private fun stopSound() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+        resetSoundUI()
+        selectedSoundOption = null
+    }
+
+    private fun setSelectedSoundUI(selectedLayout: LinearLayout) {
+        // Get the ImageView and TextView from the selected layout
+        val icon = selectedLayout.getChildAt(0) as ImageView
+        val text = selectedLayout.getChildAt(1) as TextView
+        // Set the tint to the accent color (orange)
+        icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.orange))
+        text.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+    }
+
+    private fun resetSoundUI() {
+        // If a sound was previously selected, reset its UI
+        (selectedSoundOption as? LinearLayout)?.let {
+            val icon = it.getChildAt(0) as ImageView
+            val text = it.getChildAt(1) as TextView
+            // Set the tint back to the default gray color
+            val grayColor = ContextCompat.getColor(requireContext(), R.color.gray_text)
+            icon.setColorFilter(grayColor)
+            text.setTextColor(grayColor)
         }
     }
 
-    private fun showDatePickerDialog() {
-        val today = selectedDate?.calendar ?: Calendar.getInstance()
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { _, year, month, dayOfMonth ->
-                val newSelectedCalendar = Calendar.getInstance()
-                newSelectedCalendar.set(year, month, dayOfMonth)
-                updateCalendarSelection(newSelectedCalendar)
-            },
-            today.get(Calendar.YEAR),
-            today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
+    override fun onStop() {
+        super.onStop()
+        // Stop any playing sound when the fragment is not visible
+        stopSound()
     }
 
-    private fun updateCalendarSelection(newDate: Calendar) {
-        val startDate = Calendar.getInstance()
-        startDate.add(Calendar.DAY_OF_YEAR, -daysInPast)
-
-        val diff = newDate.timeInMillis - startDate.timeInMillis
-        val days = TimeUnit.MILLISECONDS.toDays(diff).toInt()
-
-        if (days >= 0 && days < calendarDates.size) {
-            // Deselect old date
-            val oldIndex = calendarDates.indexOfFirst { it.isSelected }
-            if (oldIndex != -1) {
-                calendarDates[oldIndex].isSelected = false
-                dateAdapter.notifyItemChanged(oldIndex)
-            }
-            // Select new date
-            calendarDates[days].isSelected = true
-            selectedDate = calendarDates[days]
-            dateAdapter.notifyItemChanged(days)
-            binding.dateRecyclerView.scrollToPosition(days)
-
-            updateSleepUiForDate(calendarDates[days])
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Ensure the media player is released
+        mediaPlayer?.release()
+        mediaPlayer = null
+        _binding = null
     }
 
+    // ... All other functions (setupCalendar, updateSleepUiForDate, etc.) remain here ...
     private fun setupCalendar() {
         val calendar = Calendar.getInstance()
         val totalDays = 730
@@ -170,6 +209,50 @@ class SleepTrackerFragment : Fragment() {
         }
     }
 
+    private fun getDateKey(calendar: Calendar): String {
+        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+    }
+
+    private fun showDatePickerDialog() {
+        val today = selectedDate?.calendar ?: Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                val newSelectedCalendar = Calendar.getInstance()
+                newSelectedCalendar.set(year, month, dayOfMonth)
+                updateCalendarSelection(newSelectedCalendar)
+            },
+            today.get(Calendar.YEAR),
+            today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+
+    private fun updateCalendarSelection(newDate: Calendar) {
+        val startDate = Calendar.getInstance()
+        startDate.add(Calendar.DAY_OF_YEAR, -daysInPast)
+
+        val diff = newDate.timeInMillis - startDate.timeInMillis
+        val days = TimeUnit.MILLISECONDS.toDays(diff).toInt()
+
+        if (days >= 0 && days < calendarDates.size) {
+            // Deselect old date
+            val oldIndex = calendarDates.indexOfFirst { it.isSelected }
+            if (oldIndex != -1) {
+                calendarDates[oldIndex].isSelected = false
+                dateAdapter.notifyItemChanged(oldIndex)
+            }
+            // Select new date
+            calendarDates[days].isSelected = true
+            selectedDate = calendarDates[days]
+            dateAdapter.notifyItemChanged(days)
+            binding.dateRecyclerView.scrollToPosition(days)
+
+            updateSleepUiForDate(calendarDates[days])
+        }
+    }
+
     private fun calculateSleepStats(sleepData: DailySleepData) {
         if (sleepData.sleepTimeStartMillis != null && sleepData.wakeTimeMillis != null) {
             val durationMillis = sleepData.wakeTimeMillis!! - sleepData.sleepTimeStartMillis!!
@@ -179,16 +262,11 @@ class SleepTrackerFragment : Fragment() {
             val idealHours = 8f
             val score = ((sleepData.sleepDurationHours / idealHours) * 100).toInt()
             sleepData.sleepScore = score.coerceIn(0, 100)
+        } else {
+            // If only start time is set, reset stats
+            sleepData.sleepDurationHours = 0f
+            sleepData.sleepScore = 0
         }
-    }
-
-    private fun getDateKey(calendar: Calendar): String {
-        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 
