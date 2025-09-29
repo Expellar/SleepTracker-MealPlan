@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.sleeptrackermealplan.databinding.FragmentCommunityPostBinding
-import com.google.android.material.snackbar.Snackbar
-
+import com.google.android.material.tabs.TabLayoutMediator
 
 class CommunityFragment : Fragment() {
 
@@ -25,17 +25,27 @@ class CommunityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // --- Logic for Community Screen ---
+        // --- Handle Toolbar Back Button ---
+        binding.toolbar.setNavigationOnClickListener {
+            // This tells the NavController to go back to the previous fragment in the stack
+            findNavController().popBackStack()
+        }
 
-        // TODO: 1. Setup the RecyclerView with an Adapter for posts
-        // You'll fetch data from a ViewModel and submit it to the adapter.
-        // e.g., binding.communityRecyclerview.adapter = CommunityPostAdapter()
+        // --- Setup ViewPager and Tabs ---
+        val pagerAdapter = CommunityPagerAdapter(this)
+        binding.viewPager.adapter = pagerAdapter
 
-        // TODO: 2. Handle the Floating Action Button click
-        // This should probably navigate to a new "CreatePostFragment"
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "For You"
+                1 -> "Following"
+                else -> null
+            }
+        }.attach()
+
+        // --- Handle Floating Action Button click ---
         binding.fabCreatePost.setOnClickListener {
-            // For now, we'll just show a message
-            Snackbar.make(view, "Create new post clicked!", Snackbar.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_communityFragment_to_createPostFragment)
         }
     }
 
@@ -44,3 +54,4 @@ class CommunityFragment : Fragment() {
         _binding = null
     }
 }
+

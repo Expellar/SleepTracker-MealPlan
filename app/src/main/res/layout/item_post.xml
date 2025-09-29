@@ -15,18 +15,16 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- User Avatar -->
-        <com.google.android.material.imageview.ShapeableImageView
+        <!-- User Info -->
+        <ImageView
             android:id="@+id/user_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/palceholder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/CircleImage" />
+            tools:src="@drawable/palceholder" />
 
-        <!-- User Name -->
         <TextView
             android:id="@+id/user_name"
             android:layout_width="0dp"
@@ -34,22 +32,38 @@
             android:layout_marginStart="12dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/post_timestamp"
+            app:layout_constraintEnd_toStartOf="@id/button_like"
             app:layout_constraintStart_toEndOf="@id/user_avatar"
             app:layout_constraintTop_toTopOf="@id/user_avatar"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="Alvan" />
 
-        <!-- Post Timestamp -->
         <TextView
             android:id="@+id/post_timestamp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/user_avatar"
+            app:layout_constraintEnd_toStartOf="@id/button_like"
             app:layout_constraintStart_toStartOf="@id/user_name"
             app:layout_constraintTop_toBottomOf="@id/user_name"
             tools:text="2 hours ago" />
+
+        <!-- Like Button -->
+        <ImageButton
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/user_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/user_avatar"
+            app:srcCompat="@drawable/ic_like_outline"
+            app:tint="@android:color/white" />
+
 
         <!-- Post Content -->
         <TextView
@@ -62,8 +76,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_avatar"
-            tools:text="This is a sample post content. It can be a few lines long to show how the text wraps." />
+            tools:text="This is a sample post content." />
+
+        <!-- Post Image -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/post_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_content"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+            tools:src="@drawable/palceholder"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
+

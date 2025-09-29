@@ -44,7 +44,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="579dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- Floating Action Button to create a new post -->
@@ -53,11 +53,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="70dp"
+        android:contentDescription="Create a new post"
         android:src="@drawable/ic_add"
         app:backgroundTint="#FF9800"
-        app:tint="@android:color/white"
-        android:contentDescription="Create a new post" />
+        app:fabSize="auto"
+        app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

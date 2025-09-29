@@ -43,14 +43,19 @@
         android:id="@+id/nav_library"
         android:name="com.example.sleeptrackermealplan.LibraryFragment"
         android:label="Library"
-        tools:layout="@layout/fragment_library" >
-        <!-- ADDED: Actions to navigate to Profile and Community -->
+        tools:layout="@layout/fragment_library">
         <action
             android:id="@+id/action_library_to_profile"
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_library_to_community"
             app:destination="@id/communityFragment" />
+        <action
+            android:id="@+id/action_library_to_ranking"
+            app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_library_to_articleDetail"
+            app:destination="@id/articleDetailFragment" />
     </fragment>
 
     <fragment
@@ -124,17 +129,40 @@
         android:label="Recipe Details"
         tools:layout="@layout/fragment_recipe_detail" />
 
-    <!-- ADDED: New destinations for Profile and Community -->
+    <!-- Other Destinations -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.sleeptrackermealplan.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_library_profile" />
+
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.example.sleeptrackermealplan.CreatePostFragment"
+        android:label="Create Post"
+        tools:layout="@layout/fragment_create_post" />
 
     <fragment
         android:id="@+id/communityFragment"
         android:name="com.example.sleeptrackermealplan.CommunityFragment"
         android:label="fragment_community"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_community_post">
+        <action
+            android:id="@+id/action_communityFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rankingFragment"
+        android:name="com.example.sleeptrackermealplan.RankingFragment"
+        android:label="Ranking"
+        tools:layout="@layout/fragment_ranking" />
+
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="com.example.sleeptrackermealplan.ArticleDetailFragment"
+        android:label="Article"
+        tools:layout="@layout/fragment_article_detail" />
 
 </navigation>
+
