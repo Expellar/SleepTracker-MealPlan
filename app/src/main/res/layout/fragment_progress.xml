@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#212121"
-    android:scrollbars="none"
     android:fitsSystemWindows="true"
+    android:scrollbars="none"
     tools:context=".ProgressFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="24dp">
 
-        <!-- ✅ Screen Title -->
+        <!-- Screen Title -->
         <TextView
             android:id="@+id/progress_title"
             android:layout_width="wrap_content"
@@ -27,18 +27,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Divider -->
-        <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="#505050"
-            android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="16dp"
-            app:layout_constraintTop_toBottomOf="@id/progress_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Stats Card -->
         <com.google.android.material.card.MaterialCardView
@@ -59,26 +47,124 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp">
 
-                <TextView android:id="@+id/period_1w" style="@style/PeriodTextStyle.Selected" android:text="1W" app:layout_constraintEnd_toStartOf="@id/period_1m" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:id="@+id/period_1m" style="@style/PeriodTextStyle" android:text="1M" app:layout_constraintEnd_toStartOf="@id/period_6m" app:layout_constraintStart_toEndOf="@id/period_1w" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:id="@+id/period_6m" style="@style/PeriodTextStyle" android:text="6M" app:layout_constraintEnd_toStartOf="@id/period_1y" app:layout_constraintStart_toEndOf="@id/period_1m" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:id="@+id/period_1y" style="@style/PeriodTextStyle" android:text="1Y" app:layout_constraintEnd_toStartOf="@id/period_all" app:layout_constraintStart_toEndOf="@id/period_6m" app:layout_constraintTop_toTopOf="parent" />
-                <TextView android:id="@+id/period_all" style="@style/PeriodTextStyle" android:text="All" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/period_1y" app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/period_1w"
+                    style="@style/PeriodTextStyle.Selected"
+                    android:text="1W"
+                    app:layout_constraintEnd_toStartOf="@id/period_1m"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView android:id="@+id/stat1_value" style="@style/StatValue" android:layout_marginTop="16dp" android:text="82" app:layout_constraintEnd_toStartOf="@id/guideline1" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/period_1w" />
-                <TextView android:id="@+id/stat1_label" style="@style/StatLabel" android:text="Avg. Sleep Score" app:layout_constraintEnd_toEndOf="@id/stat1_value" app:layout_constraintStart_toStartOf="@id/stat1_value" app:layout_constraintTop_toBottomOf="@id/stat1_value" />
+                <TextView
+                    android:id="@+id/period_1m"
+                    style="@style/PeriodTextStyle"
+                    android:text="1M"
+                    app:layout_constraintEnd_toStartOf="@id/period_6m"
+                    app:layout_constraintStart_toEndOf="@id/period_1w"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView android:id="@+id/stat2_value" style="@style/StatValue" android:text="7.8" app:layout_constraintEnd_toStartOf="@id/guideline2" app:layout_constraintStart_toEndOf="@id/guideline1" app:layout_constraintTop_toTopOf="@id/stat1_value" />
-                <TextView android:id="@+id/stat2_label" style="@style/StatLabel" android:text="Avg. Sleep (hrs)" app:layout_constraintEnd_toEndOf="@id/stat2_value" app:layout_constraintStart_toStartOf="@id/stat2_value" app:layout_constraintTop_toBottomOf="@id/stat2_value" />
+                <TextView
+                    android:id="@+id/period_6m"
+                    style="@style/PeriodTextStyle"
+                    android:text="6M"
+                    app:layout_constraintEnd_toStartOf="@id/period_1y"
+                    app:layout_constraintStart_toEndOf="@id/period_1m"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView android:id="@+id/stat3_value" style="@style/StatValue" android:text="12" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/guideline2" app:layout_constraintTop_toTopOf="@id/stat1_value" />
-                <TextView android:id="@+id/stat3_label" style="@style/StatLabel" android:text="Goal Streak (days)" app:layout_constraintEnd_toEndOf="@id/stat3_value" app:layout_constraintStart_toStartOf="@id/stat3_value" app:layout_constraintTop_toBottomOf="@id/stat3_value" />
+                <TextView
+                    android:id="@+id/period_1y"
+                    style="@style/PeriodTextStyle"
+                    android:text="1Y"
+                    app:layout_constraintEnd_toStartOf="@id/period_all"
+                    app:layout_constraintStart_toEndOf="@id/period_6m"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <View android:layout_width="1dp" android:layout_height="0dp" android:background="#4A4A4A" app:layout_constraintTop_toTopOf="@id/stat1_value" app:layout_constraintBottom_toBottomOf="@id/stat1_label" app:layout_constraintStart_toEndOf="@id/guideline1" />
-                <View android:layout_width="1dp" android:layout_height="0dp" android:background="#4A4A4A" app:layout_constraintTop_toTopOf="@id/stat1_value" app:layout_constraintBottom_toBottomOf="@id/stat1_label" app:layout_constraintStart_toEndOf="@id/guideline2" />
+                <TextView
+                    android:id="@+id/period_all"
+                    style="@style/PeriodTextStyle"
+                    android:text="All"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/period_1y"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.Guideline android:id="@+id/guideline1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.33" />
-                <androidx.constraintlayout.widget.Guideline android:id="@+id/guideline2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.66" />
+                <TextView
+                    android:id="@+id/stat1_value"
+                    style="@style/StatValue"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/period_1w"
+                    tools:text="82" />
+
+                <TextView
+                    android:id="@+id/stat1_label"
+                    style="@style/StatLabel"
+                    android:text="Avg. Sleep Score"
+                    app:layout_constraintEnd_toEndOf="@id/stat1_value"
+                    app:layout_constraintStart_toStartOf="@id/stat1_value"
+                    app:layout_constraintTop_toBottomOf="@id/stat1_value" />
+
+                <TextView
+                    android:id="@+id/stat2_value"
+                    style="@style/StatValue"
+                    app:layout_constraintEnd_toStartOf="@id/guideline2"
+                    app:layout_constraintStart_toEndOf="@id/guideline1"
+                    app:layout_constraintTop_toTopOf="@id/stat1_value"
+                    tools:text="7.8" />
+
+                <TextView
+                    android:id="@+id/stat2_label"
+                    style="@style/StatLabel"
+                    android:text="Avg. Sleep (hrs)"
+                    app:layout_constraintEnd_toEndOf="@id/stat2_value"
+                    app:layout_constraintStart_toStartOf="@id/stat2_value"
+                    app:layout_constraintTop_toBottomOf="@id/stat2_value" />
+
+                <TextView
+                    android:id="@+id/stat3_value"
+                    style="@style/StatValue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline2"
+                    app:layout_constraintTop_toTopOf="@id/stat1_value"
+                    tools:text="12" />
+
+                <TextView
+                    android:id="@+id/stat3_label"
+                    style="@style/StatLabel"
+                    android:text="Goal Streak (days)"
+                    app:layout_constraintEnd_toEndOf="@id/stat3_value"
+                    app:layout_constraintStart_toStartOf="@id/stat3_value"
+                    app:layout_constraintTop_toBottomOf="@id/stat3_value" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="#4A4A4A"
+                    app:layout_constraintBottom_toBottomOf="@id/stat1_label"
+                    app:layout_constraintStart_toEndOf="@id/guideline1"
+                    app:layout_constraintTop_toTopOf="@id/stat1_value" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="#4A4A4A"
+                    app:layout_constraintBottom_toBottomOf="@id/stat1_label"
+                    app:layout_constraintStart_toEndOf="@id/guideline2"
+                    app:layout_constraintTop_toTopOf="@id/stat1_value" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.33" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.66" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -100,35 +186,62 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
                     android:text="WEEKLY REVIEW"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/weekly_review_dates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sep 16, 2025 - Sep 22, 2025"
+                    android:paddingHorizontal="16dp"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    tools:text="Sep 16, 2025 - Sep 22, 2025" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-                    <TextView style="@style/DayOfWeekItem" android:text="Fr\n05"/>
-                    <TextView style="@style/DayOfWeekItem" android:text="Sa\n06"/>
-                    <TextView style="@style/DayOfWeekItem" android:text="Su\n07"/>
-                    <TextView style="@style/DayOfWeekItem" android:text="Mo\n08"/>
-                    <TextView style="@style/DayOfWeekItem" android:text="Tu\n09"/>
-                    <TextView style="@style/DayOfWeekItem" android:text="We\n10"/>
-                    <TextView style="@style/DayOfWeekItem" android:text="Th\n11"/>
-                </LinearLayout>
+                    android:layout_marginTop="16dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_weekly_review"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_open_calendar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/item_date_review" />
+
+                    <ImageView
+                        android:id="@+id/btn_open_calendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Open calendar picker"
+                        android:padding="16dp"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@android:color/white" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -157,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:text="WEIGHT JOURNEY"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,32 +282,46 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/starting_weight_image"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/palceholder"
-                            app:shapeAppearanceOverlay="@style/RoundedImage"/>
-                        <TextView style="@style/StatLabel" android:layout_marginTop="8dp" android:text="STARTING WEIGHT"/>
+                            app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                        <TextView
+                            style="@style/StatLabel"
+                            android:layout_marginTop="8dp"
+                            android:text="BEFORE" />
                     </LinearLayout>
 
-                    <Space android:layout_width="16dp" android:layout_height="wrap_content"/>
+                    <Space
+                        android:layout_width="16dp"
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/current_weight_image"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/palceholder"
-                            app:shapeAppearanceOverlay="@style/RoundedImage"/>
-                        <TextView style="@style/StatLabel" android:layout_marginTop="8dp" android:text="CURRENT WEIGHT"/>
+                            app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                        <TextView
+                            style="@style/StatLabel"
+                            android:layout_marginTop="8dp"
+                            android:text="AFTER" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -227,7 +354,7 @@
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/achievements_subtitle"
@@ -237,36 +364,34 @@
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/achievements_title"/>
+                    app:layout_constraintTop_toBottomOf="@id/achievements_title" />
 
                 <TextView
+                    android:id="@+id/achievements_more_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="More"
                     android:textColor="@color/orange"
+                    app:layout_constraintBottom_toBottomOf="@id/achievements_subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/achievements_title"
-                    app:layout_constraintBottom_toBottomOf="@id/achievements_subtitle"/>
+                    app:layout_constraintTop_toTopOf="@id/achievements_title" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/achievements_recyclerview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/achievements_subtitle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/achievements_subtitle"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/list_item_achievement" />
 
-                    <ImageView style="@style/AchievementIcon" android:src="@drawable/ic_achievement_placeholder_1"/>
-                    <ImageView style="@style/AchievementIcon" android:src="@drawable/ic_achievement_placeholder_2"/>
-                    <ImageView style="@style/AchievementIcon" android:src="@drawable/ic_achievement_placeholder_3"/>
-
-                    <ImageView style="@style/AchievementIcon" android:layout_marginHorizontal="8dp" android:src="@drawable/ic_achievement_placeholder_1"/>
-                    <ImageView style="@style/AchievementIcon" android:layout_marginHorizontal="8dp" android:src="@drawable/ic_achievement_placeholder_2"/>
-                    <ImageView style="@style/AchievementIcon" android:layout_marginHorizontal="8dp" android:src="@drawable/ic_achievement_placeholder_3"/>
-                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+

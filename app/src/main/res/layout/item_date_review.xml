@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="8dp"
+    android:layout_marginEnd="4dp"
+    android:background="@drawable/item_date_press_selector"
+    android:id="@+id/date_item_container">
+
+    <TextView
+        android:id="@+id/text_day_of_week"
+        style="@style/DayOfWeekText"
+        tools:text="Fri" />
+
+    <TextView
+        android:id="@+id/text_date"
+        style="@style/DayOfWeekText"
+        android:layout_marginTop="4dp"
+        tools:text="05" />
+
+    <View
+        android:id="@+id/status_dot"
+        style="@style/DayOfWeekDot"
+        android:layout_marginTop="6dp"
+        tools:background="@drawable/dot_good" />
+
+</LinearLayout>
+

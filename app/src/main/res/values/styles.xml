@@ -45,14 +45,31 @@
     </style>
 
     <!-- Style for the day items in the weekly review card -->
-    <style name="DayOfWeekItem" parent="Widget.AppCompat.TextView">
+    <style name="DayOfWeekContainer">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
-        <item name="android:lineSpacingExtra">4dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:orientation">vertical</item>
     </style>
+
+    <!-- The text (Day and Date) -->
+    <style name="DayOfWeekText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <!-- The colored status dot -->
+    <style name="DayOfWeekDot">
+        <item name="android:layout_width">8dp</item>
+        <item name="android:layout_height">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
 
     <!-- Style for the achievement icons -->
     <style name="AchievementIcon">
@@ -149,6 +166,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
 
 
 </resources>
