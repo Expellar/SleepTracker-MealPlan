@@ -5,20 +5,21 @@
     android:id="@+id/loginContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C1E">
+    android:background="#1C1C1E"
+    android:fitsSystemWindows="true"
+    tools:context=".LoginFragment">
 
-    <!-- This is the custom view that creates the diagonal split. -->
-    <!-- Make sure you have the DiagonalLayout.kt and attrs.xml files in your project. -->
+    <!-- This custom view now uses the updated DiagonalLayout.kt -->
     <com.example.sleeptrackermealplan.DiagonalLayout
         android:id="@+id/diagonalLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:diagonal_angle="20"
+        app:diagonal_position="bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:diagonal_angle="10"
-        app:diagonal_position="bottom">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/headerImage"
@@ -26,6 +27,11 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/welcoming_background" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4D000000" />
 
     </com.example.sleeptrackermealplan.DiagonalLayout>
 
@@ -72,13 +78,16 @@
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginBottom="320dp"
         android:text="Welcome!"
         android:textColor="@android:color/white"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tabLogin"
-        app:layout_constraintTop_toBottomOf="@id/tabLogin" />
+        app:layout_constraintBottom_toBottomOf="@id/diagonalLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Email Field -->
@@ -87,15 +96,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#80FFFFFF"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
         android:textColorHint="#AEAEB2"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordField"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/diagonalLayout" />
 
     <!-- Password Field -->
     <EditText
@@ -103,35 +113,35 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#80FFFFFF"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@android:color/white"
         android:textColorHint="#AEAEB2"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailField" />
 
     <!-- Forgot Password -->
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="8dp"
         android:text="Forgot Password?"
         android:textColor="#FF9800"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/socialIcons"
-        app:layout_constraintEnd_toEndOf="@id/passwordField" />
+        app:layout_constraintEnd_toEndOf="@id/passwordField"
+        app:layout_constraintTop_toBottomOf="@id/passwordField" />
 
     <!-- Social Login Icons -->
     <LinearLayout
         android:id="@+id/socialIcons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/nextButton"
         app:layout_constraintStart_toStartOf="@id/passwordField">
@@ -156,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:backgroundTint="#E0E0E0"
+        android:backgroundTint="@android:color/white"
         android:paddingHorizontal="24dp"
         android:text="Next"
         android:textColor="@android:color/black"

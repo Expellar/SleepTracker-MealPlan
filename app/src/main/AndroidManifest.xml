@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- For Android 13 (API 33) and above -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- For older versions -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <!-- PERMISSION FOR INTERNET (for articles) -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- NEW PERMISSIONS AND FEATURE FOR CAMERA -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
 
     <application
         android:allowBackup="true"
@@ -25,10 +26,21 @@
             android:theme="@style/Theme.SleepTrackerMealPlan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- NEW FILE PROVIDER DECLARATION -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
     </application>
 
 </manifest>

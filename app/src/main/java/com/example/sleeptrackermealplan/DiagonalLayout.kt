@@ -4,57 +4,61 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Path
 import android.util.AttributeSet
-import android.widget.FrameLayout
-import com.example.sleeptrackermealplan.R
+import androidx.constraintlayout.widget.ConstraintLayout
+import kotlin.math.tan
 
 class DiagonalLayout @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private var diagonalAngle = 0
-    private var diagonalPosition = 0
     private val path = Path()
+    private var angle = 10f
+    private var isBottom = true
 
     init {
-        // This is needed to allow clipping on a layout
-        setWillNotDraw(false)
-
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.DiagonalLayout)
-        diagonalAngle = typedArray.getInt(R.styleable.DiagonalLayout_diagonal_angle, 0)
-        // ✅ FIX: Changed to use the correct attribute name from attrs.xml
-        diagonalPosition = typedArray.getInt(R.styleable.DiagonalLayout_diagonal_position, 0)
-        typedArray.recycle()
-    }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        if (changed) {
-            calculatePath()
-        }
-    }
-
-    private fun calculatePath() {
-        path.reset()
-        val w = width.toFloat()
-        val h = height.toFloat()
-        val angle = diagonalAngle.toFloat()
-
-        when (diagonalPosition) {
-            4 -> { // Bottom
-                path.moveTo(0f, 0f)
-                path.lineTo(w, 0f)
-                path.lineTo(w, h - angle)
-                path.lineTo(0f, h)
-                path.close()
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.DiagonalLayout,
+            0, 0
+        ).apply {
+            try {
+                angle = getFloat(R.styleable.DiagonalLayout_diagonal_angle, 10f)
+                isBottom = getInt(R.styleable.DiagonalLayout_diagonal_position, 1) == 1
+            } finally {
+                recycle()
             }
         }
     }
 
-    override fun onDraw(canvas: Canvas) {
-        if (!path.isEmpty) {
-            canvas.clipPath(path)
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        path.reset()
+
+        val width = w.toFloat()
+        val height = h.toFloat()
+        val slant = (width * tan(Math.toRadians(angle.toDouble()))).toFloat()
+
+        if (isBottom) {
+            path.moveTo(0f, 0f)
+            path.lineTo(width, 0f)
+            path.lineTo(width, height - slant)
+            path.lineTo(0f, height)
+            path.close()
+        } else { // Top position
+            path.moveTo(0f, slant)
+            path.lineTo(width, 0f)
+            path.lineTo(width, height)
+            path.lineTo(0f, height)
+            path.close()
         }
-        super.onDraw(canvas)
+    }
+
+    override fun dispatchDraw(canvas: Canvas) {
+        canvas.clipPath(path)
+        super.dispatchDraw(canvas)
     }
 }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sleeptrackermealplan.data.DailyReview
 import com.example.sleeptrackermealplan.data.ProgressStats
 import com.example.sleeptrackermealplan.databinding.FragmentProgressBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -31,35 +34,33 @@ class ProgressFragment : Fragment() {
     private lateinit var achievementAdapter: AchievementAdapter
     private lateinit var weeklyReviewAdapter: WeeklyReviewAdapter
 
-    // --- Calendar State ---
-    private val calendarDates = mutableListOf<DailyReview>()
     private var currentlySelectedDate: DailyReview? = null
-    private val daysInPast = 180 // 6 months
-    private val totalDays = 365 // 1 year total
+    private val calendarDates = mutableListOf<DailyReview>()
+    private val daysInPast = 180
+    private val totalDays = 365
 
-    // --- Image Picker ---
+    // --- NEW PHOTO SELECTION LOGIC ---
     private var selectedWeightImageType: String? = null
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            if (selectedWeightImageType == "start") {
-                binding.startingWeightImage.setImageURI(it)
-            } else if (selectedWeightImageType == "current") {
-                binding.currentWeightImage.setImageURI(it)
-            }
-        }
+    private var tempImageUri: Uri? = null
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let { updateWeightImage(it) }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
+        if (success) {
+            tempImageUri?.let { updateWeightImage(it) }
+        }
+    }
+    // --- END OF NEW LOGIC ---
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProgressBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupPeriodClickListeners()
         setupWeightJourneyClicks()
         setupAchievements()
@@ -68,6 +69,53 @@ class ProgressFragment : Fragment() {
         observeViewModel()
     }
 
+    private fun setupWeightJourneyClicks() {
+        binding.startingWeightImage.setOnClickListener {
+            selectedWeightImageType = "start"
+            showPhotoSourceDialog()
+        }
+        binding.currentWeightImage.setOnClickListener {
+            selectedWeightImageType = "current"
+            showPhotoSourceDialog()
+        }
+    }
+
+    // --- NEW FUNCTION TO SHOW THE BOTTOM SHEET ---
+    private fun showPhotoSourceDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_photo_source, null)
+        dialog.setContentView(view)
+
+        view.findViewById<TextView>(R.id.option_take_photo).setOnClickListener {
+            tempImageUri = createImageUri()
+            cameraLauncher.launch(tempImageUri)
+            dialog.dismiss()
+        }
+
+        view.findViewById<TextView>(R.id.option_choose_gallery).setOnClickListener {
+            galleryLauncher.launch("image/*")
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    // --- NEW HELPER FUNCTIONS ---
+    private fun createImageUri(): Uri {
+        val image = File(requireContext().cacheDir, "progress_photo_${System.currentTimeMillis()}.png")
+        return FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", image)
+    }
+
+    private fun updateWeightImage(uri: Uri) {
+        if (selectedWeightImageType == "start") {
+            binding.startingWeightImage.setImageURI(uri)
+        } else if (selectedWeightImageType == "current") {
+            binding.currentWeightImage.setImageURI(uri)
+        }
+    }
+    // --- END OF NEW HELPERS ---
+
+
+    // --- Other Fragment functions (unchanged) ---
     private fun setupNavigation() {
         binding.achievementsMoreButton.setOnClickListener {
             findNavController().navigate(R.id.action_progressFragment_to_achievementsFragment)
@@ -86,7 +134,6 @@ class ProgressFragment : Fragment() {
             val isToday = i == daysInPast
             val status = viewModel.getRandomReviewStatus()
             calendarDates.add(DailyReview(calendar.clone() as Calendar, status, isSelected = isToday))
-            // --- THIS LINE WAS MISSING, CAUSING ALL DATES TO BE THE SAME ---
             calendar.add(Calendar.DAY_OF_YEAR, 1)
         }
 
@@ -94,12 +141,10 @@ class ProgressFragment : Fragment() {
 
         weeklyReviewAdapter = WeeklyReviewAdapter(calendarDates) { selectedDate, position ->
             if (selectedDate == currentlySelectedDate) {
-                // SECOND CLICK: Navigate to detail screen
                 val dateString = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(selectedDate.calendar.time)
                 val bundle = bundleOf("selectedDate" to dateString)
                 findNavController().navigate(R.id.action_progressFragment_to_dailyReviewFragment, bundle)
             } else {
-                // FIRST CLICK: Select and scroll to the left edge
                 val oldIndex = calendarDates.indexOf(currentlySelectedDate)
                 if (oldIndex != -1) {
                     calendarDates[oldIndex].isSelected = false
@@ -108,22 +153,17 @@ class ProgressFragment : Fragment() {
 
                 selectedDate.isSelected = true
                 weeklyReviewAdapter.notifyItemChanged(position)
-
-                // This command scrolls the item to the very beginning of the list
                 (binding.recyclerViewWeeklyReview.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(position, 0)
-
                 updateDateTitle(selectedDate)
                 currentlySelectedDate = selectedDate
             }
         }
 
         binding.recyclerViewWeeklyReview.adapter = weeklyReviewAdapter
-        // Scroll to the initial position
         val initialPosition = calendarDates.indexOf(currentlySelectedDate)
-        if(initialPosition != -1) {
+        if (initialPosition != -1) {
             binding.recyclerViewWeeklyReview.scrollToPosition(initialPosition)
         }
-
         currentlySelectedDate?.let { updateDateTitle(it) }
     }
 
@@ -151,7 +191,6 @@ class ProgressFragment : Fragment() {
         val days = TimeUnit.MILLISECONDS.toDays(diff).toInt()
 
         if (days >= 0 && days < calendarDates.size) {
-            // This is a jump, so we just select and scroll, not a two-stage click
             val oldIndex = calendarDates.indexOfFirst { it.isSelected }
             if (oldIndex != -1) {
                 calendarDates[oldIndex].isSelected = false
@@ -192,17 +231,6 @@ class ProgressFragment : Fragment() {
         }
     }
 
-    private fun setupWeightJourneyClicks() {
-        binding.startingWeightImage.setOnClickListener {
-            selectedWeightImageType = "start"
-            pickImageLauncher.launch("image/*")
-        }
-        binding.currentWeightImage.setOnClickListener {
-            selectedWeightImageType = "current"
-            pickImageLauncher.launch("image/*")
-        }
-    }
-
     private fun setupAchievements() {
         achievementAdapter = AchievementAdapter()
         binding.achievementsRecyclerview.apply {
@@ -219,7 +247,7 @@ class ProgressFragment : Fragment() {
             achievementAdapter.submitList(achievements)
         }
         viewModel.weeklyReview.observe(viewLifecycleOwner) { reviews ->
-            // This can be used later if needed
+            // Logic handled by the RecyclerView
         }
     }
 
